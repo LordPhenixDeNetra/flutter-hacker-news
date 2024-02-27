@@ -1,5 +1,5 @@
 CREATE TABLE User (
-  id INTEGER PRIMARY KEY, 
+  id TEXT PRIMARY KEY, 
   karma INTEGER,
   created INTEGER,
 );
@@ -7,7 +7,7 @@ CREATE TABLE User (
 CREATE TABLE UserSubmitted (
   id INTEGER PRIMARY KEY, 
   submitted INTEGER
-  userId INTEGER,
+  userId TEXT,
   FOREIGN KEY(userId) REFERENCES User(id)  
 );
 
@@ -17,14 +17,14 @@ CREATE TABLE Story (
   title TEXT,
   score INTEGER, 
   commentTime INTEGER,
-  type TEXT,
   url TEXT,
-  userId INTEGER,
+  userId TEXT,
   FOREIGN KEY(userId) REFERENCES User(id)  
 );
 
 CREATE TABLE FavoriteStory (
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  storyId TEXT,
   FOREIGN KEY(storyId) REFERENCES Story(id)  
 );
 
