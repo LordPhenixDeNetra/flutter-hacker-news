@@ -32,7 +32,7 @@ CREATE TABLE Comment (
   id INTEGER PRIMARY KEY,
   texte TEXT,
   storyId INTEGER,
-  userId INTEGER,
+  userId TEXT,
   commentTime INTEGER,
   FOREIGN KEY(storyId) REFERENCES Story(id),
   FOREIGN KEY(userId) REFERENCES User(id)
