@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:n_hacker_news/Screens/NewsPage.dart';
 
 class NListAnimated extends StatelessWidget {
   final String title;
@@ -35,7 +36,17 @@ class NListAnimated extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 0, vertical: 2),
 
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 0), // Ajoutez cela pour éliminer le padding du ListTile
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NewsPage(),
+            ),
+          );
+        },
+        contentPadding: EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 0), // Ajoutez cela pour éliminer le padding du ListTile
 
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,13 +61,12 @@ class NListAnimated extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 color: Theme.of(context).colorScheme.tertiary,
               ),
-            child: Text("165"),
-            padding: EdgeInsets.symmetric(horizontal: 4, vertical: 0),
+              child: Text("165"),
+              padding: EdgeInsets.symmetric(horizontal: 4, vertical: 0),
             )
           ],
         ),
-        
-        
+
         leading: CircleAvatar(
           child: Text("UL"),
           backgroundColor: Color.fromARGB(255, 255, 200, 184),

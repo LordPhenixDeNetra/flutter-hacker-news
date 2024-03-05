@@ -16,9 +16,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final animationProvider = Provider.of<AnimationProvider>(context);
-    
-
-    
 
     return Scaffold(
       drawer: Drawer(),
@@ -27,8 +24,8 @@ class HomePage extends StatelessWidget {
           child: FutureBuilder(
               future: HackerNewsAPI().getTopStories()!,
               builder: (context, snapshot)
-              // builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot)
-               {
+                  // builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot)
+                  {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return CircularProgressIndicator();
                 } else {
@@ -39,11 +36,14 @@ class HomePage extends StatelessWidget {
                   bool animeted = animationProvider.animatedListView;
 
                   return ListView.builder(
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (BuildContext context, int position){
-                      return NListAnimated(title: snapshot.data![position].toString(), index: position, animatedListView: animeted);
-                    }
-                  );
+                      
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (BuildContext context, int position) {
+                        return NListAnimated(
+                            title: snapshot.data![position].toString(),
+                            index: position,
+                            animatedListView: animeted);
+                      });
                 }
               })),
       floatingActionButton: FloatingActionButton(
