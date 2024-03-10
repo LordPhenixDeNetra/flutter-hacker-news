@@ -1,0 +1,179 @@
+
+/*
+
+  // Initialisation de la base de données
+  Future<Database> initDatabase() async {
+    String path = join(await getDatabasesPath(), 'hackers.db');
+    _db = await openDatabase(path, version: 1, onCreate: _createDatabase);
+    return _db;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Insérer un article dans la base de données
+  Future<int> insertStory(Story story) async {
+    if (_db == null) {
+      await initDatabase();
+    }
+    return await _db.insert('stories', story.storyToJson());
+  }
+
+  Future<void> insertAllStories(List<Story> stories) async {
+    try {
+      if (_db == null) {
+        await initDatabase();
+      }
+      for (var story in stories) {
+        await insertOrUpdateStory(story);
+      }
+      print(
+          'Toutes les histoires ont été insérées dans la base de données avec succès.');
+    } catch (e) {
+      print(
+          'Une erreur s\'est produite lors de l\'insertion des histoires dans la base de données: $e');
+    }
+  }
+
+  Future<void> insertOrUpdateStory(Story story) async {
+    if (_db == null) {
+      await initDatabase();
+    }
+
+    bool articleExists = await isArticleAvailableLocally(story.id ??
+        -1); // -1 est une valeur par défaut pour le cas où l'ID est null
+
+    if (!articleExists) {
+      // L'article n'existe pas localement, nous pouvons l'insérer
+      await insertStory(story);
+    } else {
+      // L'article existe déjà localement, vous pouvez choisir de le mettre à jour ou de ne rien faire
+      // Dans cet exemple, je ne fais rien
+      print(
+          'L\'article avec l\'ID ${story.id} existe déjà dans la base de données locale.');
+    }
+  }
+
+  // Vérification de la disponibilité locale d'un article
+  Future<bool> isArticleAvailableLocally(int articleId) async {
+    if (_db == null) {
+      await initDatabase();
+    }
+    List<Map<String, dynamic>> result = await _db.query(
+      'stories',
+      where: 'id = ?',
+      whereArgs: [articleId],
+    );
+    return result.isNotEmpty;
+  }
+
+
+
+
+// Récupérer tous les articles de la base de données
+  Future<List<Story>> getStories() async {
+    if (_db == null) {
+      await initDatabase();
+    }
+    List<Map<String, dynamic>> maps = await _db.query('stories');
+    return List.generate(maps.length, (i) {
+      return Story.fromMap(maps[i]);
+    });
+  }
+
+
+
+  // Marquage d'un article comme favori
+  Future<void> markArticleAsFavorite(int articleId) async {
+    if (_db == null) {
+      await initDatabase();
+    }
+    await _db.update(
+      'stories',
+      {'isFavorite': 1},
+      where: 'id = ?',
+      whereArgs: [articleId],
+    );
+  }
+
+
+
+
+  
+
+  // Suppression d'un article de la base de données
+  Future<void> deleteArticle(int articleId) async {
+    if (_db == null) {
+      await initDatabase();
+    }
+    await _db.delete(
+      'stories',
+      where: 'id = ?',
+      whereArgs: [articleId],
+    );
+  }
+
+  // Routine de nettoyage pour supprimer les articles non favoris non disponibles via l'API
+  Future<void> cleanUpNonFavoriteArticles() async {
+    if (_db == null) {
+      await initDatabase();
+    }
+    List<Map<String, dynamic>> nonFavoriteArticles = await _db.query(
+      'stories',
+      where: 'isFavorite = ?',
+      whereArgs: [0],
+    );
+    for (var article in nonFavoriteArticles) {
+      // Récupérer l'ID de l'article
+      int articleId = article['id'];
+
+      // Code pour vérifier si l'article n'est plus disponible via l'API
+      bool isArticleAvailable = await checkArticleAvailability(articleId);
+
+      // Si l'article n'est pas disponible, supprimez-le de la base de données locale
+      if (!isArticleAvailable) {
+        await _db.delete(
+          'stories',
+          where: 'id = ?',
+          whereArgs: [articleId],
+        );
+      }
+    }
+  }
+
+  Future<bool> checkArticleAvailability(int articleId) async {
+    try {
+      // Effectuer une requête HTTP pour vérifier l'existence de l'article
+      final response = await http.get(Uri.parse(
+          'https://hacker-news.firebaseio.com/v0/item/$articleId.json'));
+
+      // Vérifier si la requête a réussi et si l'article existe dans la réponse
+      if (response.statusCode == 200) {
+        Map<String, dynamic> responseData = jsonDecode(response.body);
+
+        // Vérifier si l'article existe dans la réponse
+        if (responseData.containsKey('id') && responseData['id'] == articleId) {
+          return true; // L'article est disponible
+        }
+      }
+
+      // Si la requête a échoué ou si l'article n'existe pas
+      return false;
+    } catch (e) {
+      // En cas d'erreur lors de la requête
+      print(
+          'Erreur lors de la vérification de la disponibilité de l\'article : $e');
+      return false;
+    }
+  }
+  
+  */

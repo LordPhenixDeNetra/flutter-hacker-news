@@ -34,6 +34,9 @@ class ThemeProvider extends ChangeNotifier {
 
 */
 
+
+// final IconData icon;
+
 ThemeMode _themeMode = ThemeMode.system;
 
   ThemeMode get themeMode => _themeMode;

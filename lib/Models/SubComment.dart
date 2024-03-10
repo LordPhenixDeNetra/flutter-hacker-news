@@ -1,14 +1,24 @@
 class SubComment {
   int? id;
   int? commentId;
-  int? texte;
+  String? userId;
+  String? texte;
   int? subCommentTime;
 
-  SubComment.fromJson(dynamic jsonData){
+  SubComment({
+    required this.id,
+    required this.commentId,
+    required this.userId,
+    required this.texte,
+    required this.subCommentTime,
+  });
+
+  SubComment.fromJson(Map<String, dynamic> jsonData){
     id = jsonData['id'];
-    commentId = jsonData['commentId'];
-    texte = jsonData['texte'];
-    subCommentTime = jsonData['subCommentTime'];
+    commentId = jsonData['parent'];
+    texte = jsonData['text'];
+    subCommentTime = jsonData['time'];
+    userId = jsonData['by'];
   }
 
   Map<String, dynamic> subCommentToJson() {

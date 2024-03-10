@@ -2,12 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:n_hacker_news/App.dart';
+import 'package:n_hacker_news/Database/DatabaseHelper.dart';
 import 'package:n_hacker_news/services/AnimationProvider.dart';
+import 'package:n_hacker_news/services/DatabaseHelperProvider.dart';
 import 'package:n_hacker_news/services/NewsProvider.dart';
 import 'package:n_hacker_news/services/ThemeProvider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+
+  // DatabaseHelper databaseHelper = DatabaseHelper();
+
   runApp(
     
     MultiProvider(
@@ -20,6 +25,10 @@ void main() {
         ),
         ChangeNotifierProvider<AnimationProvider>(
           create: (_) => AnimationProvider(), // Remplacez OtherProvider() par votre logique d'instanciation réelle de OtherProvider
+        ),
+
+        ChangeNotifierProvider<DatabaseHelperProvider>(
+          create: (_) => DatabaseHelperProvider(), // Remplacez OtherProvider() par votre logique d'instanciation réelle de OtherProvider
         ),
       ],
       child: App(),

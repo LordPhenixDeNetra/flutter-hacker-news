@@ -45,6 +45,10 @@ dependencies:
   animation_list: ^3.0.0
   solid_bottom_sheet: ^0.1.10
   webview_flutter:
+  intl: ^0.17.0
+  connectivity: ^3.0.6
+  get: ^4.6.6
+  # google_fonts:
   # flutter_animated_theme: ^1.0.0
 
 dev_dependencies:
